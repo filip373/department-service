@@ -13,18 +13,22 @@
 
 ActiveRecord::Schema.define(version: 20160511120309) do
 
-  create_table "contracts", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
+  create_table "contracts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
     t.datetime "due_date"
-    t.integer  "showroom_id"
+    t.uuid     "showroom_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  add_index "contracts", ["showroom_id"], name: "index_contracts_on_showroom_id"
+  add_index "contracts", ["showroom_id"], name: "index_contracts_on_showroom_id", using: :btree
 
-  create_table "showrooms", force: :cascade do |t|
+  create_table "showrooms", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name"
     t.string   "address"
     t.string   "phone_number"

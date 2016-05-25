@@ -1,6 +1,8 @@
 class CreateShowrooms < ActiveRecord::Migration
   def change
-    create_table :showrooms do |t|
+    enable_extension 'uuid-ossp'
+
+    create_table :showrooms, id: :uuid do |t|
       t.string :name
       t.string :address
       t.string :phone_number
