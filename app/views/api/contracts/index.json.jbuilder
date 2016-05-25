@@ -1,1 +1,1 @@
-json.array! @contracts, partial: 'contract', as: :contract
+json.array! @contracts, partial: 'api/contracts/contract', as: :contract

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :contracts, except: [:edit]
     resources :showrooms, only: [:index, :show]
+    get 'sync/contracts/:time' => 'sync#contracts'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
