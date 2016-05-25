@@ -1,9 +1,9 @@
-class ContractsController < ApplicationController
+class API::ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :update, :destroy]
   skip_before_action :verify_authenticity_token
 
   def index
-    render json: Contract.all
+    @contracts = Contract.all
   end
 
   def new
@@ -11,7 +11,6 @@ class ContractsController < ApplicationController
   end
 
   def show
-    render json: @contract
   end
 
   def create
