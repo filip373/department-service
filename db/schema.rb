@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511120309) do
+ActiveRecord::Schema.define(version: 20160527132916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,9 @@ ActiveRecord::Schema.define(version: 20160511120309) do
     t.string   "description"
     t.datetime "due_date"
     t.uuid     "showroom_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "deleted",     default: false
   end
 
   add_index "contracts", ["showroom_id"], name: "index_contracts_on_showroom_id", using: :btree
@@ -32,9 +33,18 @@ ActiveRecord::Schema.define(version: 20160511120309) do
     t.string   "name"
     t.string   "address"
     t.string   "phone_number"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "make"
+    t.boolean  "deleted",      default: false
+  end
+
+  create_table "synchronizations", force: :cascade do |t|
+    t.datetime "date"
+    t.integer  "created"
+    t.integer  "updated"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

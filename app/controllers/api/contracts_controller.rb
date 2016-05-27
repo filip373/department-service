@@ -3,7 +3,7 @@ class API::ContractsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @contracts = Contract.all
+    @contracts = Contract.where(deleted: false)
   end
 
   def new
@@ -32,7 +32,7 @@ class API::ContractsController < ApplicationController
   end
 
   def destroy
-    @contract.destroy
+    @contract.update(deleted: true)
     head :no_content
   end
 
