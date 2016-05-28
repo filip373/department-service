@@ -21,17 +21,11 @@
 #   description: 'Potrzebne 20 zdjęć na przyszły tydzień. Szczegóły do ustalenia.',
 #   due_date: 1.week.since, showroom: bednarek)
 
-makes = %w(Opel Audi Volkswagen Fiat Renault Citroen Ford Volvo BMW Mercedes Toyota Suzuki)
+response = CentralShowrooms.new(ENV['CENTRAL_SYNC_URL']).all
+response.each { |s| Showroom.create!(s) }
+showrooms = Showroom.all
 
-20.times do
-  Showroom.create!(name: Faker::Company.name,
-    address: "#{Faker::Address.street_address}, #{Faker::Address.city}",
-    phone_number: Faker::PhoneNumber.cell_phone, make: makes.sample)
-end
-
-showrooms = Showroom.all.to_a
-
-30.times do
+10.times do
   Contract.create!(title: Faker::Lorem.sentence(3, false, 0), description: Faker::Lorem.paragraph,
     due_date: Faker::Time.forward(30), showroom: showrooms.sample)
 end
